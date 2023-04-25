@@ -1,10 +1,37 @@
 
 # Ziggo Connectbox V2 (Sagemcom F3896LG) reversed API.
-
 The Connectbox V2 Sagemcom API reversed in order to find devices by hostname or get a list of all hosts connected to the network.
 Sharing this because it may help others that were struggling doing the same as I was.
 Check out #Experimenting documentation to see why I started playing around with this project.
 This may prove totally useless but I guess it's interesting in a way haha.
+
+## How to use
+The package is available in NPM under the name `ziggo-connectbox` and you should be able to do `npm i ziggo-connectbox` in order to install this package to your project.
+
+Within the [index.ts](https://github.com/pgsleepy/Ziggo-CBv2-API/blob/master/index.ts) file there's a function called Example().
+I'll show it here as well.
+
+```js
+const Modem = require('ziggo-connectbox');
+
+//* Create new instance of a modem.
+const modem = new Modem();
+
+//* Login to the instance of the modem (required for most API endpoints)
+await modem.Login("YourPasswordHere.");
+
+//* Find by hostname (if connected).
+const SleepyPC = await modem.FindByHostName("Sleepy's PC");
+console.log(SleepyPC);
+
+//* Show all the hosts currently connected.
+const allHosts = await modem.getConnectedHosts();
+console.log(allHosts);
+
+//? Always end with logging out, otherwise a restart or 15 minutes waiting time is required to login again.
+await modem.Logout();
+```
+
 
 
 ## REST Endpoints
